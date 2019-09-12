@@ -1,23 +1,29 @@
-var map = L.map('mapid').on('load', onMapLoad).setView([41.400, 2.206], 9);
+let url_base = "http://localhost";
+
+let map = L.map('mapid').on('load', onMapLoad).setView([41.400, 2.206], 9);
 //map.locate({setView: true, maxZoom: 17});
 	
-var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+let tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
 
 //en el clusters almaceno todos los markers
-var markers = L.markerClusterGroup();
-var data_markers = [];
+let markers = L.markerClusterGroup();
+let data_markers = [];
 
 function onMapLoad() {
+   
+	$.getJSON(`${url_base}/mapas/api/apiRestaurants.php`, function(data){
+		$.each(data, function(key, value){
+			data_markers.push(value);
+		});
+	});
+		
+};
+console.log(data_markers.indexOf[1][3]);
 
-	console.log("Mapa cargado");
-    /*
-	FASE 3.1
-		1) Relleno el data_markers con una petición a la api
-		2) Añado de forma dinámica en el select los posibles tipos de restaurantes
-		3) Llamo a la función para --> render_to_map(data_markers, 'all'); <-- para mostrar restaurantes en el mapa
-	*/
 
-}
+
+
+
 
 $('#kind_food_selector').on('change', function() {
   console.log(this.value);
